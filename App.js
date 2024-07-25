@@ -1,20 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import AppNavigator from "./src/navigation/AppNavigator";
+import UserProvider from "./src/Context/UserContext";
+import { useState } from "react";
 
 export default function App() {
+  const [userId, setUserId] = useState({});
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <UserProvider value={{ userId, setUserId }}>
+        <StatusBar style="auto" />
+        <AppNavigator />
+    </UserProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -2,10 +2,8 @@ import { Button, Text, TextInput } from "react-native-paper";
 import { Image, ImageBackground, SafeAreaView, View } from "react-native";
 import { useState, useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import UserContext from "../Context/UserContext";
 import { signin } from "../services/userService";
 import { styles } from "../../styles";
-import { signinSchema } from "../schemas/signinSchema";
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState("");
@@ -21,20 +19,21 @@ export default function LoginScreen({ navigation }) {
         try{
             const response = await signin(user);
             console.log(response);
-            const token = response.data.token;
             if(response.status !== 200){
                 alert("Erro ao logar usuário");
             }
-            AsyncStorage.setItem("authToken", token)
+
+            const token = response.data.token;
+            await AsyncStorage.setItem("authToken", token)
             alert("Usuário logado com sucesso!")
+
             navigation.navigate("profilescreen");
     }catch(error){
-        alert("Error: ", error);
+        alert(`Error: ${error.message}`);
     }
 }
 
     return (
-        <SafeAreaView>
             <ImageBackground source={require("../../assets/ImagemFundo.png")} style={styles.container}>
                 <View style={styles.container_inner}>
                     <Image source={require("../../assets/ImagemPI.png")} />
@@ -69,13 +68,12 @@ export default function LoginScreen({ navigation }) {
                     />
 
                     <Text>{"\n"}</Text>
-                    <Button type="submit" textColor="#FFF" mode="outlined" style={styles.button} >LOGAR</Button>
+                    <Button onPress={handleLogin} textColor="#FFF" mode="outlined" style={styles.button} >LOGAR</Button>
                     <Text>{"\n"}</Text>
-                    <Button textColor="#FFF" onPress={() => navigation.navigate("registroscreen")}>
+                    <Button textColor="#FFF" onPress={() => navigation.navigate("registerscreen")}>
                         Fazer cadastro
                     </Button>
                 </View>
             </ImageBackground>
-        </SafeAreaView>
     );
 }

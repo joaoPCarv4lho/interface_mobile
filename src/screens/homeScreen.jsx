@@ -8,3 +8,11 @@ import { useState, useEffect } from "react";
  */
 import { userLogged } from "../services/userService";
 import { getAllProducts } from "../services/productService";
+
+export default function HomeScreen(){
+    return(
+        <View>
+            <Text>Home Screen</Text>
+        </View>
+    )
+}

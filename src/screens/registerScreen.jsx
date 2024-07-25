@@ -1,8 +1,8 @@
-import { Alert, Image, ImageBackground, View } from "react-native";
+import { Image, ImageBackground, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { useState } from "react";
 import { signup } from "../services/userService";
-
+import {styles} from "../../styles";
 
 export default function RegisterScreen({ navigation }){
     const [name, setName] = useState("");
@@ -32,7 +32,7 @@ export default function RegisterScreen({ navigation }){
         setPassword("")
         navigation.navigate("loginscreen");
     }catch(error){
-        alert("Erro: ", error);
+        alert(`Error: ${error.message}`);
     }
     }
 
@@ -89,7 +89,7 @@ export default function RegisterScreen({ navigation }){
                 />
 
                 <Text>{"\n"}</Text>
-                <Button type="submit" textColor="#FFF" mode="outlined" style={styles.button} onPress={handleRegister} >CADASTRAR</Button>
+                <Button textColor="#FFF" mode="outlined" style={styles.button} onPress={handleRegister} >CADASTRAR</Button>
                 <Text>{"\n"}</Text>
                 <Button textColor="#FFF" onPress={() => navigation.navigate("loginscreen")}>
                     Já tenho cadastro
