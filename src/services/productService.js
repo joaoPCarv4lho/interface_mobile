@@ -1,5 +1,5 @@
 import axios from "axios";
-// import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
 const baseUrl = "https://restfulapi-ecommerce.onrender.com/api";
 
@@ -13,20 +13,13 @@ export function searchProducts(name){
     return response;
 }
 
-export function getAllProductsByUser(){
-    const response = axios.get(`${baseUrl}/product/byUser`,{
-        headers: {
-            Authorization: `Bearer ${Cookies.get("token")}`
-        }
-    });
+export function getAllProductsByUser(userId){
+    const response = axios.get(`${baseUrl}/product/byUser/${userId}`);
     return response;
 }
 
-export function createProduct(body){
-    const response = axios.post(`${baseUrl}/product/create`, {
-        headers: {
-            Authorization: `Bearer ${Cookies.get("token")}`,
-        }
+export function createProduct(body, userId){
+    const response = axios.post(`${baseUrl}/product/create`, body, {
     });
     return response;
 }

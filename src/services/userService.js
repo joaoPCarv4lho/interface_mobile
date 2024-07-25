@@ -1,5 +1,5 @@
 import axios from 'axios';
-//import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
 const baseUrl = "https://restfulapi-ecommerce.onrender.com/api";
 
@@ -18,8 +18,8 @@ export function signin(data){
     return response;
 }
 
-export function userLogged(){
-    const response = axios.get(`${baseUrl}/user/findByID`, {
+export function userLogged(userId){
+    const response = axios.get(`${baseUrl}/user/${userId}`, {
         headers: {
             Authorization: `Bearer ${Cookies.get("token")}`
         }
